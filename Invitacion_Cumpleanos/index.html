@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Una noche para ti</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+    <!-- Banderitas de papel picado -->
+    <div class="papel" id="papel" aria-hidden="true"></div>
+
+    <main class="contenedor">
+
+        <!-- PANTALLA 1: PORTADA -->
+        <section id="inicio" class="inicio">
+            <!-- TU IMAGEN DE FONDO: images/portada.jpg -->
+            <div class="inicio-fondo"></div>
+
+            <div class="inicio-texto">
+                <p class="etiqueta">Una sorpresa para ti</p>
+                <h1>Tengo algo<br>especial para ti</h1>
+                <p class="descripcion">
+                    Para la cumpleañera más hermosa.<br>
+                    Preparé algo para celebrar tu vida.
+                </p>
+                <button id="abrir">Abrir sorpresa</button>
+            </div>
+        </section>
+
+        <!-- PANTALLA 2: INVITACIÓN -->
+        <section id="invitacion" class="invitacion oculta">
+
+            <header class="encabezado">
+                <p class="etiqueta">Una fecha para recordar</p>
+                <h2>Mi amor, esta invitación es para ti</h2>
+                <p class="intro">
+                    Quiero compartir contigo una noche especial,
+                    con momentos bonitos, risas y mucho amor.
+                </p>
+            </header>
+
+            <!-- TU IMAGEN PRINCIPAL: images/foto1.jpg -->
+            <figure class="marco">
+                <img src="images/foto1.jpg" alt="Foto principal" onerror="this.parentElement.classList.add('vacio')">
+                <figcaption>Xielo Mexicano</figcaption>
+            </figure>
+
+            <!-- Boleto con los datos -->
+            <div class="boleto">
+                <div class="boleto-lugar">
+                    <h2>Xielo Mexicano</h2>
+                    <p>Una cita para dos</p>
+                </div>
+                <div class="boleto-datos">
+                    <p><strong>Sábado</strong> 7 de noviembre de 2026</p>
+                    <p><strong>8:00</strong> de la noche</p>
+                </div>
+            </div>
+
+            <!-- Galería: pon tus fotos en images/foto2.jpg y images/foto3.jpg -->
+            <div class="galeria">
+                <figure class="marco chico">
+                    <img src="images/foto2.jpg" alt="Foto 2" onerror="this.parentElement.classList.add('vacio')">
+                </figure>
+                <figure class="marco chico">
+                    <img src="images/foto3.jpg" alt="Foto 3" onerror="this.parentElement.classList.add('vacio')">
+                </figure>
+            </div>
+
+            <article class="carta">
+                <h2>Para ti, mi niña hermosa</h2>
+                <p>
+                    Quiero celebrar tu cumpleaños de una manera especial,
+                    regalarte una noche bonita y seguir creando recuerdos contigo.
+                </p>
+                <p>
+                    No se trata solamente de salir a comer, sino de compartir
+                    mi tiempo contigo y recordarte lo importante que eres para mí.
+                </p>
+                <p>
+                    Te mereces momentos hermosos y quiero ser parte de ellos.
+                </p>
+            </article>
+
+            <div class="respuesta-zona">
+                <h2>¿Aceptas esta invitación, cumpleañera?</h2>
+                <button id="aceptar">Sí, acepto</button>
+                <p id="respuesta" class="oculta">¡Tenemos una cita! Te veo el 7 de noviembre.</p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <div id="petalos" aria-hidden="true"></div>
+
+    <script>
+        // Banderitas de papel picado
+        const colores = ["#f5a623", "#d6336c", "#1fb5a8", "#7b3fe4", "#f2ede0"];
+        const papel = document.getElementById("papel");
+        for (let i = 0; i < 24; i++) {
+            const b = document.createElement("span");
+            b.style.setProperty("--c", colores[i % colores.length]);
+            b.style.animationDelay = (i * 0.15) + "s";
+            papel.appendChild(b);
+        }
+
+        // Abrir invitación
+        document.getElementById("abrir").addEventListener("click", function () {
+            document.getElementById("inicio").classList.add("oculta");
+            document.getElementById("invitacion").classList.remove("oculta");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        // Aceptar: muestra respuesta y lluvia de pétalos
+        document.getElementById("aceptar").addEventListener("click", function () {
+            document.getElementById("respuesta").classList.remove("oculta");
+            this.disabled = true;
+            const cont = document.getElementById("petalos");
+            for (let i = 0; i < 40; i++) {
+                const p = document.createElement("i");
+                p.style.left = Math.random() * 100 + "vw";
+                p.style.animationDuration = (3 + Math.random() * 3) + "s";
+                p.style.animationDelay = (Math.random() * 1.5) + "s";
+                p.style.setProperty("--c", colores[i % 3]);
+                cont.appendChild(p);
+                setTimeout(() => p.remove(), 8000);
+            }
+        });
+    </script>
+
+</body>
+</html>

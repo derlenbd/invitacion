@@ -1,0 +1,273 @@
+:root {
+    --noche: #0b0d2b;
+    --noche-2: #171a4a;
+    --cempasuchil: #f5a623;
+    --magenta: #d6336c;
+    --turquesa: #1fb5a8;
+    --crema: #f6ead2;
+    --titulos: "Abril Fatface", Georgia, serif;
+    --texto: "Lora", Georgia, serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    min-height: 100vh;
+    font-family: var(--texto);
+    color: var(--crema);
+    line-height: 1.8;
+    background:
+        radial-gradient(circle at 20% 10%, #2a2f7a55, transparent 45%),
+        radial-gradient(circle at 85% 90%, #d6336c33, transparent 40%),
+        var(--noche);
+    background-attachment: fixed;
+    padding-bottom: 60px;
+}
+
+/* ---------- Papel picado ---------- */
+.papel {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    height: 62px;
+    border-top: 3px solid var(--cempasuchil);
+    position: relative;
+}
+.papel::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--cempasuchil);
+}
+.papel span {
+    flex: 0 0 auto;
+    width: 58px;
+    height: 54px;
+    margin: 0 1px;
+    background: var(--c);
+    clip-path: polygon(0 0, 100% 0, 100% 78%, 85% 100%, 70% 78%, 50% 100%, 30% 78%, 15% 100%, 0 78%);
+    -webkit-mask: radial-gradient(circle at 50% 38%, transparent 7px, #000 8px);
+            mask: radial-gradient(circle at 50% 38%, transparent 7px, #000 8px);
+    transform-origin: top center;
+    animation: mecer 3.5s ease-in-out infinite;
+}
+
+@keyframes mecer {
+    0%, 100% { transform: rotate(-3deg); }
+    50%      { transform: rotate(3deg); }
+}
+
+.contenedor {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 30px 20px 0;
+}
+
+/* ---------- Tipografía ---------- */
+h1, h2 {
+    font-family: var(--titulos);
+    font-weight: 400;
+    line-height: 1.15;
+}
+h1 {
+    font-size: clamp(2.6rem, 9vw, 4.4rem);
+    color: var(--cempasuchil);
+    margin-bottom: 20px;
+}
+h2 {
+    font-size: clamp(1.7rem, 5vw, 2.3rem);
+    color: var(--cempasuchil);
+    margin-bottom: 14px;
+}
+.etiqueta {
+    color: var(--turquesa);
+    font-style: italic;
+    font-size: 1.05rem;
+    margin-bottom: 14px;
+}
+
+/* ---------- Portada ---------- */
+.inicio {
+    position: relative;
+    min-height: 78vh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    border-radius: 6px;
+    overflow: hidden;
+    outline: 3px solid var(--cempasuchil);
+    outline-offset: 8px;
+}
+/* PON TU IMAGEN: images/portada.jpg (si no existe, se ve el degradado) */
+.inicio-fondo {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to top, var(--noche) 5%, #0b0d2b99 60%, #0b0d2bcc),
+        url("images/portada.jpg") center / cover,
+        linear-gradient(160deg, var(--noche-2), #4a1d5e 60%, #7a2347);
+}
+.inicio-texto {
+    position: relative;
+    padding: 50px 24px;
+}
+.descripcion {
+    max-width: 30ch;
+    margin: 0 auto 28px;
+    font-size: 1.1rem;
+}
+
+/* ---------- Botones ---------- */
+button {
+    font-family: var(--titulos);
+    font-size: 1.15rem;
+    background: var(--cempasuchil);
+    color: var(--noche);
+    border: none;
+    padding: 14px 34px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--magenta);
+    transition: transform .2s, box-shadow .2s;
+}
+button:hover:not(:disabled) {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--magenta);
+}
+button:focus-visible { outline: 3px solid var(--turquesa); outline-offset: 4px; }
+button:disabled { opacity: .6; cursor: default; }
+
+/* ---------- Invitación ---------- */
+.invitacion { animation: aparecer .9s ease; }
+
+.encabezado { text-align: center; margin-bottom: 34px; }
+.intro { max-width: 44ch; margin: 0 auto; }
+
+/* Marco tipo talavera */
+.marco {
+    position: relative;
+    margin: 0 0 40px;
+    padding: 14px;
+    background: repeating-conic-gradient(var(--turquesa) 0 25%, var(--crema) 0 50%) 0 0 / 28px 28px;
+    border-radius: 4px;
+    box-shadow: 0 18px 40px #0008;
+}
+.marco img {
+    display: block;
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+    border: 4px solid var(--noche);
+}
+.marco figcaption {
+    position: absolute;
+    left: 50%;
+    bottom: -18px;
+    transform: translateX(-50%);
+    background: var(--magenta);
+    color: var(--crema);
+    font-family: var(--titulos);
+    padding: 6px 22px;
+    white-space: nowrap;
+}
+/* Si no hay imagen, queda un recuadro decorativo */
+.marco.vacio img { display: none; }
+.marco.vacio::after {
+    content: "Tu foto aquí";
+    display: grid;
+    place-items: center;
+    height: 340px;
+    border: 4px solid var(--noche);
+    background: var(--noche-2);
+    color: var(--crema);
+    font-style: italic;
+}
+.marco.chico.vacio::after { height: 200px; }
+.marco.chico { margin: 0; padding: 10px; background-size: 20px 20px; }
+.marco.chico img { height: 200px; }
+
+.galeria {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+/* Boleto */
+.boleto {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    background: var(--crema);
+    color: var(--noche);
+    border-radius: 6px;
+    margin: 30px 0 40px;
+    position: relative;
+    box-shadow: 0 14px 30px #0007;
+}
+.boleto::before {
+    content: "";
+    position: absolute;
+    left: calc(54.5% - 1px);
+    top: 14px; bottom: 14px;
+    border-left: 3px dashed var(--magenta);
+}
+.boleto-lugar, .boleto-datos { padding: 28px 24px; }
+.boleto-lugar h2 { color: var(--magenta); margin-bottom: 4px; }
+.boleto-datos { padding-left: 34px; align-self: center; }
+.boleto-datos p { line-height: 1.5; margin-bottom: 12px; }
+.boleto-datos strong { font-family: var(--titulos); font-weight: 400; font-size: 1.35rem; color: var(--noche-2); }
+
+/* Carta */
+.carta {
+    padding: 8px 0 8px 26px;
+    border-left: 4px solid var(--magenta);
+    margin-bottom: 50px;
+}
+.carta p { margin-bottom: 16px; font-size: 1.08rem; max-width: 58ch; }
+
+/* Respuesta */
+.respuesta-zona { text-align: center; }
+#respuesta {
+    margin-top: 26px;
+    font-family: var(--titulos);
+    font-size: 1.6rem;
+    color: var(--turquesa);
+    animation: aparecer .9s ease;
+}
+
+.oculta { display: none !important; }
+
+/* ---------- Pétalos ---------- */
+#petalos { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+#petalos i {
+    position: absolute;
+    top: -30px;
+    width: 14px; height: 20px;
+    background: var(--c);
+    border-radius: 100% 0 100% 0;
+    animation: caer linear forwards;
+}
+@keyframes caer {
+    to { transform: translateY(110vh) rotate(540deg); }
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Móvil ---------- */
+@media (max-width: 560px) {
+    .papel span { width: 44px; height: 44px; }
+    .marco img { height: 240px; }
+    .marco.vacio::after { height: 240px; }
+    .galeria { grid-template-columns: 1fr; }
+    .boleto { grid-template-columns: 1fr; }
+    .boleto::before { display: none; }
+    .boleto-datos { padding: 0 24px 26px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+}
